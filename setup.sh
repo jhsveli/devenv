@@ -1,0 +1,1 @@
+ln -s $(pwd)/dotfiles/.zshrc ~/.zshrc
