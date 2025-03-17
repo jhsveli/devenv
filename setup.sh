@@ -1,1 +1,5 @@
-ln -s $(pwd)/dotfiles/.zshrc ~/.zshrc
+#!/usr/bin/env bash
+
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+
+ln -s "$SCRIPT_DIR/dotfiles/.zshrc" ~/.zshrc
