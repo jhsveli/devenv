@@ -102,12 +102,8 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-#export SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
-zmodload zsh/stat
-$ resolve() { [[ -L $REPLY ]] && stat -A REPLY +link -- ${1-$REPLY}; }
-SCRIPT="${0:A:h}/.zshrc"
-ZSHRC_LOCATION=`echo $SCRIPT(+resolve)`
-export SCRIPT_DIR=$(dirname "$ZSHRC_LOCATION")
+
+export DEVENV_DIR="/Users/jorgen.sveli/git/devenv"
 
 [ -f /Users/jorgen.sveli/opt/etc/shrc ] && . /Users/jorgen.sveli/opt/etc/shrc
 
@@ -126,6 +122,8 @@ alias idea='open -na "IntelliJ IDEA.app"'
 alias ls="ls -la --color=auto"
 alias kbp="cd ~/git/awl-monorepo/apps/team-bm-betaling/kundefront-bm-payments"
 alias kbt="cd ~/git/kundefront-bm-transaksjoner"
+alias kbis="cd ~/git/kundefront-bm-incoming-swift"
+alias kbrt="cd ~/git/kundefront-bm-recent-transactions"
 alias abp="cd ~/git/awl-monorepo/apps/team-bm-betaling/api-bm-payment"
 alias abt="cd ~/git/awl-monorepo/apps/team-bm-betaling/api-bm-transaksjoner"
 alias abot="cd ~/git/api-bm-ocr-transactions"
@@ -139,7 +137,7 @@ alias lsprunemerged="BASE=\$(git rev-parse --abbrev-ref origin/HEAD | cut -c8-) 
 alias prunemerged="BASE=\$(git rev-parse --abbrev-ref origin/HEAD | cut -c8-) && git checkout -q \$BASE && git for-each-ref refs/heads/ \"--format=%(refname:short)\" | while read branch; do mergeBase=\$(git merge-base \$BASE \$branch) && [[ \$(git cherry \$BASE \$(git commit-tree \$(git rev-parse \"\$branch^{tree}\") -p \$mergeBase -m _)) == \"-\"* ]] && git branch -D \$branch; done"
 alias base="BASE=\$(git rev-parse --abbrev-ref origin/HEAD | cut -c8-) && git checkout \$BASE"
 
-export PATH="$PATH:$SCRIPT_DIR/../src"
+export PATH="$PATH:$DEVENV_DIR/src"
 
 # Functions
 
