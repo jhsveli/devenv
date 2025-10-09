@@ -133,9 +133,9 @@ alias gs="git status"
 alias gc="git commit"
 alias glg="git log"
 alias gd="git diff"
-alias lsprunemerged="BASE=\$(git rev-parse --abbrev-ref origin/HEAD | cut -c8-) && git checkout -q \$BASE && git for-each-ref refs/heads/ \"--format=%(refname:short)\" | while read branch; do mergeBase=\$(git merge-base \$BASE \$branch) && [[ \$(git cherry \$BASE \$(git commit-tree \$(git rev-parse \"\$branch^{tree}\") -p \$mergeBase -m _)) == \"-\"* ]] && echo \"\$branch is merged into \$BASE and can be deleted\"; done"
-alias prunemerged="BASE=\$(git rev-parse --abbrev-ref origin/HEAD | cut -c8-) && git checkout -q \$BASE && git for-each-ref refs/heads/ \"--format=%(refname:short)\" | while read branch; do mergeBase=\$(git merge-base \$BASE \$branch) && [[ \$(git cherry \$BASE \$(git commit-tree \$(git rev-parse \"\$branch^{tree}\") -p \$mergeBase -m _)) == \"-\"* ]] && git branch -D \$branch; done"
-alias base="BASE=\$(git rev-parse --abbrev-ref origin/HEAD | cut -c8-) && git checkout \$BASE"
+alias lsprunemerged="BASE=\$(git rev-parse --abbrev-ref -- origin/HEAD | cut -c8-) && git checkout -q \$BASE && git for-each-ref refs/heads/ \"--format=%(refname:short)\" | while read branch; do mergeBase=\$(git merge-base \$BASE \$branch) && [[ \$(git cherry \$BASE \$(git commit-tree \$(git rev-parse \"\$branch^{tree}\") -p \$mergeBase -m _)) == \"-\"* ]] && echo \"\$branch is merged into \$BASE and can be deleted\"; done"
+alias prunemerged="BASE=\$(git rev-parse --abbrev-ref -- origin/HEAD | cut -c8-) && git checkout -q \$BASE && git for-each-ref refs/heads/ \"--format=%(refname:short)\" | while read branch; do mergeBase=\$(git merge-base \$BASE \$branch) && [[ \$(git cherry \$BASE \$(git commit-tree \$(git rev-parse \"\$branch^{tree}\") -p \$mergeBase -m _)) == \"-\"* ]] && git branch -D \$branch; done"
+alias base="BASE=\$(git rev-parse --abbrev-ref -- origin/HEAD | cut -c8-) && git checkout \$BASE"
 
 export PATH="$PATH:$DEVENV_DIR/src"
 
