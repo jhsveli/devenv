@@ -116,6 +116,15 @@ export NVM_DIR="$HOME/.nvm"
   [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  
   [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  
 
+# Check for and set GH PAT
+
+if [ -e ~/github-token.txt ]
+then 
+  gh auth login -h github.com --with-token < ~/github-token.txt
+else 
+  echo "GITHUB token file not found at ~/github-token.txt"
+fi
+
 # Aliases
 alias zshc="subl ~/.zshrc"
 alias idea='open -na "IntelliJ IDEA.app"'
@@ -125,7 +134,7 @@ alias kbt="cd ~/git/kundefront-bm-transaksjoner"
 alias kbis="cd ~/git/kundefront-bm-incoming-swift"
 alias kbrt="cd ~/git/kundefront-bm-recent-transactions"
 alias abp="cd ~/git/awl-monorepo/apps/team-bm-betaling/api-bm-payment"
-alias abt="cd ~/git/awl-monorepo/apps/team-bm-betaling/api-bm-transaksjoner"
+alias abt="cd ~/git/awl-monorepo/apps/team-bm-transaksjoner/api-bm-transaksjoner"
 alias abot="cd ~/git/api-bm-ocr-transactions"
 alias abtc="cd ~/git/api-bm-transaction-customizations"
 
@@ -136,6 +145,12 @@ alias gd="git diff"
 alias lsprunemerged="BASE=\$(git rev-parse --abbrev-ref -- origin/HEAD | cut -c8-) && git checkout -q \$BASE && git for-each-ref refs/heads/ \"--format=%(refname:short)\" | while read branch; do mergeBase=\$(git merge-base \$BASE \$branch) && [[ \$(git cherry \$BASE \$(git commit-tree \$(git rev-parse \"\$branch^{tree}\") -p \$mergeBase -m _)) == \"-\"* ]] && echo \"\$branch is merged into \$BASE and can be deleted\"; done"
 alias prunemerged="BASE=\$(git rev-parse --abbrev-ref -- origin/HEAD | cut -c8-) && git checkout -q \$BASE && git for-each-ref refs/heads/ \"--format=%(refname:short)\" | while read branch; do mergeBase=\$(git merge-base \$BASE \$branch) && [[ \$(git cherry \$BASE \$(git commit-tree \$(git rev-parse \"\$branch^{tree}\") -p \$mergeBase -m _)) == \"-\"* ]] && git branch -D \$branch; done"
 alias base="BASE=\$(git rev-parse --abbrev-ref -- origin/HEAD | cut -c8-) && git checkout \$BASE"
+
+alias kns=kubens
+alias kcx=kubectx
+
+alias draft="gh pr create -df"
+alias vp="gh pr view --web"
 
 export PATH="$PATH:$DEVENV_DIR/src"
 
