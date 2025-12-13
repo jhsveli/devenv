@@ -1,7 +1,7 @@
 # My dotfiles and convenience scripts
 Features:
 - [Optional] Symlink the zshrc into your home folder
-- [Optional] Install pipenv for python convenience scripts
+- [Optional] Install pipenv dependency manager for python convenience scripts
 
 Clone repository and run:
 ```
