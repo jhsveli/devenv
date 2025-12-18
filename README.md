@@ -1,7 +1,7 @@
 # My dotfiles and convenience scripts
 Features:
 - [Optional] Symlink the zshrc into your home folder
-- [Optional] Install pipenv for python convenience scripts
+- [Optional] Install pipenv dependency manager for python convenience scripts
 
 Clone repository and run:
 ```
@@ -10,8 +10,7 @@ Clone repository and run:
 
 ## Convenience scripts
 
-prod
-:Lists configrepo image updates awaiting your review.
-prs
-:Lists PRs awaiting your review across github, excluding image-updater PRs which would be included in the `prod` command. 
+`prod`      Lists configrepo image updates awaiting your review.
+
+`prs`      Lists PRs awaiting your review across github, excluding image-updater PRs which would be included i` `hep command. 
 
