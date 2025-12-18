@@ -24,13 +24,18 @@ if [ $USER_INSTALLED_DOTFILES -eq 0 ]; then
 fi
 
 if check_yes_no "Install .py scripts?"; then
-  if ! command -v brew 2>&1 >/dev/null
-  then
-      echo "Homebrew command 'brew' could not be found"
-      exit 1
+
+  # Check for pipenv and install with brew if possible
+  if ! command -v pipenv 2>&1 >/dev/null; then
+    if ! command -v brew 2>&1 >/dev/null
+    then
+        echo "Homebrew command 'brew' could not be found. Install pipenv with your package manager"
+        exit 1
+    fi
+    echo "Installing pipenv with brew"
+    brew install pipenv
   fi
-  echo "Installing pipenv"
-  brew install pipenv
+
   pipenv install
 
   if [ $USER_INSTALLED_DOTFILES -eq 1 ]; then
