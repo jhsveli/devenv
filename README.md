@@ -12,5 +12,5 @@ Clone repository and run:
 
 `prod`      Lists configrepo image updates awaiting your review.
 
-`prs`      Lists PRs awaiting your review across github, excluding image-updater PRs which would be included i` `hep command. 
+`prs`      Lists PRs awaiting your review across github, excluding image-updater PRs which would be included in the `prod` menu. 
 
