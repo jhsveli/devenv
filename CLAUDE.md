@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Personal devenv repository containing dotfiles (.zshrc) and Python CLI tools for GitHub PR management.
+Personal devenv repository containing dotfiles (.zshrc, fish config) and a Textual-based PR menu for GitHub PR review and merging.
 
 ## Setup
 
@@ -12,35 +12,38 @@ Personal devenv repository containing dotfiles (.zshrc) and Python CLI tools for
 ./setup.sh  # Interactive setup: optionally symlinks dotfiles and installs Python dependencies
 ```
 
-## Running the CLI Tools
+## Running the PR menu
 
-The tools require `gh` CLI to be installed and authenticated. Scripts are in `src/`:
+Requires `gh` CLI installed and authenticated. The bash wrapper is in `src/`:
 
 ```bash
-prod    # Interactive menu for reviewing/merging image-updater PRs in configrepo
-prs     # Interactive menu for reviewing PRs across all repos (excluding image-updater)
+menu                  # opens on the Production tab
+menu --tab reviews    # opens on the Reviews tab
 ```
 
-Run directly if `$DEVENV_DIR/src` is in PATH, or:
+Run directly without the wrapper:
 ```bash
-cd src && pipenv run python3 prod.py
-cd src && pipenv run python3 prs.py
+cd src && pipenv run python3 menu.py [--tab prod|reviews]
 ```
+
+Inside the menu: `←/→` switches tabs, per-tab action keys are shown in the legend (Enter approve+merge on Production; `a`/`m`/`o` on Reviews), `q`/`esc` quits.
 
 ## Architecture
 
-- `src/cmd.py` - Shared subprocess utilities for executing commands and parsing JSON
-- `src/prod.py` - Image updater PR review tool (filters by username/mentions, requires SUCCESS checks)
-- `src/prs.py` - General PR review tool with keyboard shortcuts: [a]pprove, [m]erge, [o]pen in browser
-- `src/prod`, `src/prs` - Bash wrappers that run the Python scripts via pipenv
-- `dotfiles/.zshrc` - Shell configuration with aliases and environment setup
+- `src/menu.py` - Entry point; argparse `--tab`, composes the two TabConfigs into one app via `pr_menu.run_pr_menu`.
+- `src/pr_menu.py` - Generic Textual `PRMenuApp` hosting N tabs. Defines `TabConfig`, `ActionSpec`, `ActionResult`. Per-tab fetch loop, countdown/spinner, breadcrumb, hotkeys legend; shared bordered preview pane.
+- `src/prod.py` - Exposes `TAB = TabConfig(...)` for the Production tab (image-updater PRs in configrepo, filtered to mentions/dependabot/SUCCESS checks; Enter = approve+merge).
+- `src/prs.py` - Exposes `TAB = TabConfig(...)` for the Reviews tab (review-requested PRs across all repos, excluding image-updater; `a` approve, `m` approve+merge, `o` open in browser).
+- `src/cmd.py` - `exec` / `exec_json` subprocess helpers.
+- `src/menu` - One-line bash wrapper that runs `pipenv run python3 menu.py "$@"` with a `gh` presence check.
+- `dotfiles/.zshrc`, `dotfiles/config.fish` - Shell configuration with aliases and environment setup.
 
 ## Dependencies
 
 - Python 3.13 with pipenv
 - `gh` CLI for GitHub API access (uses GraphQL queries)
-- `simple-term-menu` for interactive terminal menus
+- `textual` for the TUI
 
 ## Environment Variables
 
-- `DEVENV_DIR` - Path to this repository (set in .zshrc, used by wrapper scripts)
+- `DEVENV_DIR` - Path to this repository (set in shell rc, used by the `menu` wrapper)

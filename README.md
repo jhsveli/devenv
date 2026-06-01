@@ -1,6 +1,6 @@
 # My dotfiles and convenience scripts
 Features:
-- [Optional] Symlink the zshrc into your home folder
+- [Optional] Symlink the zshrc / fish config into your home folder
 - [Optional] Install pipenv dependency manager for python convenience scripts
 
 Clone repository and run:
@@ -10,7 +10,8 @@ Clone repository and run:
 
 ## Convenience scripts
 
-`prod`      Lists configrepo image updates awaiting your review.
+`menu`      Interactive Textual menu for reviewing PRs.
 
-`prs`      Lists PRs awaiting your review across github, excluding image-updater PRs which would be included in the `prod` menu. 
+Two tabs: **Production** (configrepo image-updater PRs awaiting your review) and **Reviews** (review-requested PRs across GitHub, excluding image-updater).
 
+`←/→` switches tabs. Each tab shows its own hotkey legend. Defaults to the Production tab; pass `--tab reviews` to start on Reviews.
