@@ -77,3 +77,6 @@ function idea () {
 }
 
 gpgconf --launch gpg-agent
+
+# Created by `pipx` on 2026-06-01 19:32:39
+export PATH="$PATH:/Users/jorgen.sveli/.local/bin"

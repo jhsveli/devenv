@@ -1,17 +1,12 @@
-# My dotfiles and convenience scripts
-Features:
-- [Optional] Symlink the zshrc / fish config into your home folder
-- [Optional] Install pipenv dependency manager for python convenience scripts
+# My dotfiles
 
 Clone repository and run:
 ```
 ./setup.sh
 ```
 
-## Convenience scripts
+Optionally symlinks the included `.zshrc` and `config.fish` into your home folder.
 
-`menu`      Interactive Textual menu for reviewing PRs.
+## Related repos
 
-Two tabs: **Production** (configrepo image-updater PRs awaiting your review) and **Reviews** (review-requested PRs across GitHub, excluding image-updater).
-
-`←/→` switches tabs. Each tab shows its own hotkey legend. Defaults to the Production tab; pass `--tab reviews` to start on Reviews.
+- [seon](https://github.com/jhsveli/seon) — Textual TUI for reviewing GitHub PRs (`pipx install git+ssh://git@github.com/jhsveli/seon.git`).
