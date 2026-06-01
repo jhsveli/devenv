@@ -13,14 +13,28 @@ check_yes_no() {
     done
 }
 
+safe_link() {
+    if [ ! -e "$2" ]; then
+        ln -s $1 $2
+    elif [ -f "$2" ]; then
+        mv $2 "$.BACKUP"
+        ln -s $1 $2
+    elif [ -L "$2" ]; then
+        echo "$1 already linked"
+    else
+        "Should not see this"
+    fi
+}
+
 echo "Attempting to find where this repo was checked out.."
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 check_yes_no "Symlink dotfiles?"
 USER_INSTALLED_DOTFILES=$?
 if [ $USER_INSTALLED_DOTFILES -eq 0 ]; then
-  echo "Linking the repo's -zshrc into your home folder"
-  ln -s "$SCRIPT_DIR/dotfiles/.zshrc" ~/.zshrc
+  echo "Linking the repo's -zshrc and config.fish into your home folder"
+  safe_link "$SCRIPT_DIR/dotfiles/.zshrc" ~/.zshrc
+  safe_link "$SCRIPT_DIR/dotfiles/config.fish" ~/.config/fish/config.fish
 fi
 
 if check_yes_no "Install .py scripts?"; then

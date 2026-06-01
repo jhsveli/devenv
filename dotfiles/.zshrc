@@ -1,5 +1,20 @@
 # Starship prompt
 eval "$(starship init zsh)"
+source <(fzf --zsh)
+
+# Enable up/down arrow search
+autoload -U up-line-or-beginning-search
+autoload -U down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+
+# Bind arrow keys
+bindkey "^[[A" up-line-or-beginning-search
+bindkey "^[[B" down-line-or-beginning-search
+
+# Bind Home / End (?)
+bindkey "^[[H" beginning-of-line
+bindkey "^[[F" end-of-line
 
 export DEVENV_DIR="/Users/jorgen.sveli/git/devenv"
 
@@ -35,9 +50,12 @@ alias abda="cd ~/git/awl-monorepo/apps/team-bm-transaksjoner/api-bm-document-arc
 alias abt="cd ~/git/api-bm-transaksjoner"
 alias abot="cd ~/git/api-bm-ocr-transactions"
 alias abtc="cd ~/git/api-bm-transaction-customizations"
+alias f=fzf
 
 alias gs="git status"
+alias ga="git add"
 alias gc="git commit"
+alias gco="git checkout"
 alias glg="git log"
 alias gd="git diff"
 alias base="BASE=\$(git rev-parse --abbrev-ref -- origin/HEAD | cut -c8-) && git checkout \$BASE"
