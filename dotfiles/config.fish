@@ -18,8 +18,8 @@ if status is-interactive
 	end
 
 	# PATH changes
-	fish_add_path -a "/Applications/Sublime Text.app/Contents/SharedSupport/bin" 
-	fish_add_path -a "$DEVENV_DIR/src"abt
+	fish_add_path -a "/Applications/Sublime Text.app/Contents/SharedSupport/bin"
+	fish_add_path -a "$HOME/.local/bin"
 	fish_add_path -a "/bin" "/usr/bin" "/sbin:/usr/sbin" "/usr/local/bin" "/usr/local/sbin" "/usr/local/bin" "/usr/sbin" "/usr/games" "/usr/local/games"
 	fish_add_path -a "/home/$USER_HOME/.local/bin"
 	fish_add_path -a "/home/$USER_HOME/opt/jdk/bin"
