@@ -5,6 +5,7 @@ if status is-interactive
 	set -gx GPG_TTY (tty)
 	set -g theme_nerd_fonts yes
 
+	set -gx HOMEBREW_CASK_OPTS "--appdir=$HOME/Applications --no-quarantine"
 
 	# Load shrc.d in one bass subshell so helper functions persist across files
 	# Skip: aws_completer, bash/zsh prompts, bob-completion, zsh-site-functions, history
@@ -42,7 +43,7 @@ if status is-interactive
 	abbr -a -- kns kubens
 	abbr -a -- kcx kubectx
 
-	abbr -a -- mkpr 'gh pr create -f'
+	abbr -a -- mkpr 'gh pr create -f && gh pr view --json url | jq -r ".url"'
 	abbr -a -- draft 'gh pr create -df'
 	abbr -a -- vp 'gh pr view --web'
 
@@ -52,6 +53,8 @@ if status is-interactive
 	abbr -a -- kc 'kubectx'
 	abbr -a -- kx 'kubectx'
 	abbr -a -- kns 'kubens'
+
+	abbr -a -- claude 'claude --team bm-transaksjoner'
 
 	alias ls="ls -la --color=auto"
 
