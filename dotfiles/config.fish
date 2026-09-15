@@ -11,6 +11,9 @@ if status is-interactive
 	# Skip: aws_completer, bash/zsh prompts, bob-completion, zsh-site-functions, history
 	bass "source ~/opt/etc/shrc.d/00-safe-path-add.sh; for f in ~/opt/etc/shrc.d/*.sh; do case \$f in *aws_completer*|*bash-prompt*|*zsh-prompt*|*bob-completion*|*10_zsh*|*history*|*aliases*) ;; *) . \$f ;; esac; done"
 
+	# Re-prepend fnm: homebrew-bin.sh above re-prepends /opt/homebrew/bin, burying fnm's shim dir
+	fnm env --use-on-cd --shell fish | source
+
 	# Translate aliases from aliases.sh into fish aliases
 	for line in (grep '^alias ' ~/opt/etc/shrc.d/aliases.sh)
 	  set -l name  (string match -r '^alias ([^=]+)=' -- $line)[2]
