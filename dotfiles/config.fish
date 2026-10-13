@@ -6,13 +6,11 @@ if status is-interactive
 	set -g theme_nerd_fonts yes
 
 	set -gx HOMEBREW_CASK_OPTS "--appdir=$HOME/Applications --no-quarantine"
+	set -gx FNM_COREPACK_ENABLED "true"
 
 	# Load shrc.d in one bass subshell so helper functions persist across files
 	# Skip: aws_completer, bash/zsh prompts, bob-completion, zsh-site-functions, history
 	bass "source ~/opt/etc/shrc.d/00-safe-path-add.sh; for f in ~/opt/etc/shrc.d/*.sh; do case \$f in *aws_completer*|*bash-prompt*|*zsh-prompt*|*bob-completion*|*10_zsh*|*history*|*aliases*) ;; *) . \$f ;; esac; done"
-
-	# Re-prepend fnm: homebrew-bin.sh above re-prepends /opt/homebrew/bin, burying fnm's shim dir
-	fnm env --use-on-cd --shell fish | source
 
 	# Translate aliases from aliases.sh into fish aliases
 	for line in (grep '^alias ' ~/opt/etc/shrc.d/aliases.sh)
@@ -46,7 +44,7 @@ if status is-interactive
 	abbr -a -- kns kubens
 	abbr -a -- kcx kubectx
 
-	abbr -a -- mkpr 'gh pr create -f && gh pr view --json url | jq -r ".url"'
+	abbr -a -- mkpr 'gh pr create -f && gh pr view --json url | jq -r ".url" | pbcopy'
 	abbr -a -- draft 'gh pr create -df'
 	abbr -a -- vp 'gh pr view --web'
 
